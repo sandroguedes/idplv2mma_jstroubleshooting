@@ -1,47 +1,77 @@
 (() => {
-    const puzzleButtons = document.querySelectorAll('#buttonHolder img'),
-    puzzlePieces = document.querySelectorAll('.puzzle-image'),
-    dropZones = document.querySelectorAll('.drop-zone'),
-    gameBoard = document.querySelector(".puzzle-board");
+        const puzzleButtons = document.querySelectorAll('#buttonHolder img'),
+            gameBoard = document.querySelector('.puzzle-board'),
+            puzzlePieces = document.querySelectorAll('.puzzle-pieces img'),
+            dropZones = document.querySelectorAll('.drop-zone'),
+            zonePieces = document.querySelector('.puzzle-pieces');;
 
-let imageNames = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
+    const pieceName = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
 
-    function changeImageSet() {
-
-        imageNames.forEach((piece, index) => {
+    function changeImageSet()
+    {
+        pieceName.forEach((piece, index) =>
+        {
             puzzlePieces[index].src = `images/${piece + this.dataset.bgkey}.jpg`;
-        });
+        }
+    );
 
+    gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgkey}.jpg)`;
+    }
 
-        gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgkey}.jpg)`;
-    } 
-
-    function allowDrag(event) {
-        console.log('started dragging an image: this one - ', event.target.id);
-
+    function allowDrag(event)
+    {
+        console.log('started dragging - ', event.target.id);
         event.dataTransfer.setData("draggedImg", this.id);
     }
 
-    function allowDragOver(event) {
+    function allowDragOver(event)
+    {
         event.preventDefault();
-        console.log('dragged something over me')
+        console.log('dragging over me');
     }
 
-    function allowDrop(event) {
-        console.log('dropped something on me');
+    function allowDrop(event)
+    {
+        if (this.children.length >= 1)
+        {
+            return;
+        }
 
-        let droppedImage = event.dataTransfer.getData("draggedImg", this.id);
-
+        console.log('dropped an image');
+        let droppedImage = event.dataTransfer.getData("draggedImg");
         event.target.appendChild(document.querySelector(`#${droppedImage}`));
     }
 
-    puzzleButtons.forEach(button => button.addEventListener('click', changeImageSet));
-    puzzlePieces.forEach(piece => piece.addEventListener('dragstart', allowDrag));
-
-    for (let zone of dropZones) {
-        zone.addEventListener('dragover', allowDragOver);
-        zone.addEventListener('drop', allowDrop);
+    function resetPuzzle()
+    {
+    for (let loop = 0; loop < puzzlePieces.length; loop=loop+1)
+        {
+        zonePieces.appendChild(puzzlePieces[loop]);
+        }
     }
 
-    changeImageSet.call(puzzleButtons[0]); 
+    puzzleButtons.forEach(button =>
+    {
+        button.addEventListener('click', changeImageSet);
+        button.addEventListener('click', resetPuzzle);
+    });
+
+    puzzlePieces.forEach(piece => piece.addEventListener('dragstart', allowDrag));
+
+    dropZones.forEach(zone =>
+    {
+        zone.addEventListener('dragover', allowDragOver);
+        zone.addEventListener('drop', allowDrop);
+    });
+
+//WIP reset button
+//    const resetButton = document.querySelector('.resetbutton');
+
+//    resetButton.forEach(button =>
+//    {
+//        button.addEventListener('click', resetPuzzle);
+//    })
+
+
+    changeImageSet.call(puzzleButtons[0]);
 })();
