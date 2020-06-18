@@ -3,7 +3,8 @@
             gameBoard = document.querySelector('.puzzle-board'),
             puzzlePieces = document.querySelectorAll('.puzzle-pieces img'),
             dropZones = document.querySelectorAll('.drop-zone'),
-            zonePieces = document.querySelector('.puzzle-pieces');;
+            zonePieces = document.querySelector('.puzzle-pieces'),
+            resetButton = document.querySelector('.resetbutton');
 
     const pieceName = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
 
@@ -50,6 +51,12 @@
         }
     }
 
+// RESET BUTTON START
+
+    resetButton.addEventListener('click', resetPuzzle);
+
+// RESET BUTTON END
+
     puzzleButtons.forEach(button =>
     {
         button.addEventListener('click', changeImageSet);
@@ -63,14 +70,6 @@
         zone.addEventListener('dragover', allowDragOver);
         zone.addEventListener('drop', allowDrop);
     });
-
-//WIP reset button
-//    const resetButton = document.querySelector('.resetbutton');
-
-//    resetButton.forEach(button =>
-//    {
-//        button.addEventListener('click', resetPuzzle);
-//    })
 
 
     changeImageSet.call(puzzleButtons[0]);
