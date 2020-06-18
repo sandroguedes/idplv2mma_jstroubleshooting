@@ -15,6 +15,8 @@ font-size: 16px;
 display: none
 }
 
+
+
 #game-boards
 {
 width: 100%;
@@ -92,6 +94,11 @@ margin: 0px auto;
 text-align: center;
 }
 
+header span
+{
+color:red;
+}
+
 header h2
 {
 font-size: 3em;
@@ -109,7 +116,7 @@ margin: 10px 0
 footer
 {
 position: relative;
-width: 600px;
+width: 700px;
 margin: 65px auto 0;
 text-align: center;
 }
@@ -139,9 +146,17 @@ opacity: .5;
 border: 3px solid white;
 border-radius:10px;
 background-color:red;
-width: 100px;
+width: 120px;
 margin-left:auto;
 margin-right:auto;
-margin-top:10px;
-margin-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+cursor:pointer;
+}
+
+.resetbutton:hover
+{
+background-color:white;
+border: 3px solid red;
+color:red;
 }
